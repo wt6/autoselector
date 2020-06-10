@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Home
+{% endblock %}
+
+{% block heading %}
+    Welcome to AutoSelector!
+{% endblock %}
+
+{% block main %}
+    <div class="container">
+        <a href="/review" class="btn btn-primary" role="button" type="button">Review Vehicle</a>
+    </div>
+    <br/>
+    <div class="container">
+        <a href="/estimate" class="btn btn-primary" role="button" type="button">Vehicle Depreciation Estimate</a>
+    </div>
+
+    {# If user is logged-in show button to go to /history page where previously submitted reviews can be seen #}
+    {% if logged_in %}
+        </br>
+        <div class="container">
+            <a href="/history" class="btn btn-primary" role="button" type="button">Review Submission History</a>
+        </div>
+    {% endif %}
+    </br>
+    </br>
+    <div class="container">
+        <table class="table">
+            <thead class="thead-light">
+                <tr>
+                    <th>Most Popular Vehicles</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for vehicle in popular %}
+                    <tr>
+                        <td><a href={{vehicle["link"]}}>{{vehicle["name"]}}</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

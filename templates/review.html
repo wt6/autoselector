@@ -1,0 +1,65 @@
+{% extends "layout.html" %}
+
+{% block scripts %}
+    <script src="static/options.js"></script>
+    <script src="static/review.js"></script>
+{% endblock %}
+
+{% block title %}
+    Review
+{% endblock %}
+
+{% block heading %}
+    Review Vehicle
+{% endblock %}
+
+{% block main %}
+    <form action="/review" method="post">
+        <div class="form-group">
+            <select id="make" autofocus class="form-control" name="make">
+                <option selected value="none">Select Make</option>
+                {% for make in makes %}
+                    <option value={{make}}>{{make}}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <select id="model" class="form-control" name="model">
+                <option selected value="none">Select Model</option>
+            </select>
+        </div>
+        <div class="form-group">
+            Or <a href="/new" class="btn btn-info" type="button" role="button">Add New Vehicle</a>
+        </div>
+        <div class="form-group">
+            <select id="model_year" class="form-control" name="model_year">
+                <option selected value="none">Select Vehicle's Model Year</option>
+                {% for year in years %}
+                    <option value={{year}}>{{year}}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <select id="purchase_year" class="form-control" name="purchase_year">
+                <option selected value="none">Select Year of Purchase</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <input class="form-control" name="purchase_mileage" type="number" placeholder="Mileage at Purchase"/>
+        </div>
+        <div class="form-group">
+            <input class="form-control" name="purchase_price" type="number" placeholder="Purchase Price"/>
+        </div>
+        <div class="form-group">
+            Do you still own this vehicle?</br>
+            <input name="own" type="radio" value="yes"> Yes</br>
+            <input name="own" type="radio" value="no"> No
+        </div>
+        <div class="form-group">
+            <input  id="maintenance" class="form-control" style="display: none;" name="annual_maintenance" type="number" placeholder="Maintenance Cost Last Year"/>
+        </div>
+        <div class="form-group">
+            <button class="btn btn-primary" type="submit">Submit</button>
+        </div>
+    </form>
+{% endblock %}

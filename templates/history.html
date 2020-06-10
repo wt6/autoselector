@@ -1,0 +1,82 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Vehicles Reviews
+{% endblock %}
+
+{% block heading %}
+    Review Submission History
+{% endblock %}
+
+{% block main %}
+    {# Display message if no previous reviews exist of current user #}
+    {% if history|length == 0 %}
+        <div class="container">
+            <h4>You have not submitted any reviews yet!</h4>
+            </br>
+            <h4>Click here to review a vehicle: <a href="/review" class="btn btn-primary" role="button" type="button">Review Vehicle</a></h4>
+        </div>
+        </br>
+
+    {# Otherwise display table of past reviews #}
+    {% else %}
+        <div class="container">
+            <table class="table table-striped table-sm">
+                <tr>
+                    <th>Review Date</th>
+                    <th>Vehicle Reviewed</th>
+                    <th>Model Year</th>
+                    <th>Purchase Year</th>
+                    <th>Purchase Price</th>
+                    <th>Purchase Mileage</th>
+                    <th>Owned at time of review?</th>
+                    <th>Annual Maintenance Cost</br> (at Review Year)</th>
+                </tr>
+
+                {# Fills in recieved data on review history #}
+                {% for review in history %}
+                    <tr>
+                        <td>
+                            {{review["review_date"]}}
+                        </td>
+                        <td>
+                            {{review["make_model"]}}
+                        </td>
+                        <td>
+                            {{review["model_year"]}}
+                        </td>
+                        <td>
+                            {{review["purchase_year"]}}
+                        </td>
+                        <td>
+                            £{{review["purchase_price"]}}
+                        </td>
+                        <td>
+                            {{review["purchase_mileage"]}}
+                        </td>
+                        <td>
+                            {% if review["ownership"] %}
+                                Yes
+                            {% else %}
+                                No
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if review["annual_maintenance"] == None %}
+                                -
+                            {% else %}
+                                £{{review["annual_maintenance"]}}
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    {% endif %}
+
+    <!-- Button labeled 'Done' to allow user to return to the homepage -->
+    <div class="container">
+        </br>
+        <a href="/" class="btn btn-primary" role="button" type="button">Done</a>
+    </div>
+{% endblock %}

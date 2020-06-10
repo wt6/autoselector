@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    New Vehicle
+{% endblock %}
+
+{% block heading %}
+    Create New Vehicle
+{% endblock %}
+
+{% block main %}
+    <form action="/new" method="post">
+        <div class="form-group">
+            <input class="form-control" name="make" type="text" placeholder="Enter Vehicle Make">
+        </div>
+        <div class="form-group">
+            <input class="form-control" name="model" type="text" placeholder="Enter Vehicle Model">
+        </div>
+        <div class="form-group">
+            <button class="btn btn-primary" type="submit">Add Vehicle</button>
+        </div>
+    </form>
+{% endblock %}
