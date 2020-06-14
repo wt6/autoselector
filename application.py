@@ -9,6 +9,8 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from helpers import InflationFinder, login_required, comma_format
 from dbmanager import DBManager
 
+# Global variable for location of db which stores user, vehicle and reviews data
+db_location = "autos.db"
 
 # Configure application
 app = Flask(__name__)
@@ -28,8 +30,8 @@ app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
-# Initialise DBManager object with 'autos' database
-db = DBManager(app, "autos.db")
+# Initialise DBManager object
+db = DBManager(app, db_location)
 
 @app.route("/")
 def index():
@@ -423,9 +425,9 @@ def register():
                             username=username, password=pass_hash)
 
         # Log user in
-        flash("Registration successful")
         session["user_id"] = result
         session["username"] = username
+        flash("Registration successful")
         return redirect("/")
 
 

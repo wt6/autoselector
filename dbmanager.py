@@ -1,15 +1,13 @@
 import sqlite3
 from flask import Flask, g
 
-app = Flask(__name__)
-
 class DBManager(object):
     '''Class for abstracting use of sqlite3 with flask app'''
 
-    def __init__(self, main_app, db_location):
-        #global app
-        #app = main_app
+    def __init__(self, app, db_location):
+        self.app = app
         self.db_location = db_location;
+        self.app.teardown_appcontext(self.close_connection)
         
     # check if database connection is already open, then either return existing
     # connection or open new one.
@@ -17,8 +15,7 @@ class DBManager(object):
         self.db = getattr(g, '_database', None)
         
         if self.db is None:
-            #with app.app_context():
-                self.db = g._database = sqlite3.connect(self.db_location)
+            self.db = g._database = sqlite3.connect(self.db_location)
         
         # Specify dict format for db's row factory
         def make_dicts(cursor, row):
@@ -27,7 +24,6 @@ class DBManager(object):
         self.db.row_factory = make_dicts
         return self.db
         
-    @app.teardown_appcontext
     def close_connection(self, exception):
         self.db = getattr(g, '_database', None)
         if self.db is not None:
@@ -89,5 +85,4 @@ class DBManager(object):
             self.db.commit()
             return cur.lastrowid
         else:
-            #cur.close()
             return rv
