@@ -81,7 +81,7 @@ class DBManager(object):
         rv = cur.fetchall()
         
         # If insert statement was executed, commit change and return id for inserted record
-        if statement_type == "INSERT":
+        if statement_type == "INSERT" or statement_type == "UPDATE" or statement_type == "DELETE":
             self.db.commit()
             return cur.lastrowid
         else:

@@ -1,19 +1,17 @@
 from datetime import datetime
 
 from flask import Flask, flash, redirect, render_template, request, session, jsonify
-from flask_session import Session
-from tempfile import mkdtemp
 from werkzeug.exceptions import default_exceptions
 from werkzeug.security import check_password_hash, generate_password_hash
 
-from helpers import InflationFinder, login_required, comma_format
-from dbmanager import DBManager
+from autoselector.helpers import InflationFinder, login_required, comma_format
+from autoselector.dbmanager import DBManager
 
 # Global variable for location of db which stores user, vehicle and reviews data
 db_location = "autos.db"
 
 # Configure application
-app = Flask(__name__)
+app = Flask("autoselector")
 
 
 # Ensure responses aren't cached
@@ -24,11 +22,8 @@ def after_request(response):
     response.headers["Pragma"] = "no-cache"
     return response
 
-# Configure session to use filesystem (instead of signed cookies)
-app.config["SESSION_FILE_DIR"] = mkdtemp()
-app.config["SESSION_PERMANENT"] = False
-app.config["SESSION_TYPE"] = "filesystem"
-Session(app)
+# Configure secret key for use with session
+app.config["SECRET_KEY"] = "b'*\x94U\xd6\xe8\x9f\xc0\xa5\\\xb4V\x10\xcai\xfc\xe6'"
 
 # Initialise DBManager object
 db = DBManager(app, db_location)
@@ -36,7 +31,7 @@ db = DBManager(app, db_location)
 @app.route("/")
 def index():
     """Render index template Showing options"""
-
+    
     # Find three most commonly reviewed vehicles then retrieve make and model names
     ordered = db.execute("SELECT vehicle_id FROM reviews GROUP BY vehicle_id ORDER BY COUNT(vehicle_id) DESC")
     popular = []
