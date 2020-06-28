@@ -10,9 +10,15 @@ from autoselector.dbmanager import DBManager
 # Global variable for location of db which stores user, vehicle and reviews data
 db_location = "autos.db"
 
-# Configure application
+# Instantiate Flask application
 app = Flask("autoselector")
 
+# Configure application from settings file located via environment variable
+app.config.from_object('autoselector.default_settings')
+app.config.from_envvar('AUTOSELECTOR_SETTINGS')
+
+# Initialise DBManager object
+db = DBManager(app, db_location)
 
 # Ensure responses aren't cached
 @app.after_request
@@ -21,12 +27,6 @@ def after_request(response):
     response.headers["Expires"] = 0
     response.headers["Pragma"] = "no-cache"
     return response
-
-# Configure secret key for use with session
-app.config["SECRET_KEY"] = "b'*\x94U\xd6\xe8\x9f\xc0\xa5\\\xb4V\x10\xcai\xfc\xe6'"
-
-# Initialise DBManager object
-db = DBManager(app, db_location)
 
 @app.route("/")
 def index():
