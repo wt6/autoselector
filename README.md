@@ -1,14 +1,14 @@
-## AutoSelector
+# AutoSelector
 
 By Wesley Thompson
 
-# Description
+## Description
 
 * This project is a web application called AutoSelector.
 * With this website, users can submit information on vehicles they have purchased such as milage at purchase, maintenance cost and purchase price.
 * Users are able to lookup vehicle make and models to get a graph of the estimated depreciation and tabulated data such as maintenance cost by age.
 
-# How to Use
+## How to Use
 1. Clone the autoselector repository.
 
 2. **(For testing purposes)** By default the application will use a non-secret development key for signing session cookies. This is stored in the default settings file. As this is part of the publicly visible code, this is only suitable for use when testing.
@@ -19,11 +19,11 @@ By Wesley Thompson
 
     **(For non-testing purposes)** A WSGI server will be required to run web application.
 
-# Prerequisites
+## Prerequisites
 * Python 3.5
 * Flask (can be installed via pip)
 
-# Implementation
+## Implementation
 * Python application using Flask web micro-framework.
 * Google charts service used for generating graphs via javascript.
 * Bootstrap (available under the MIT licence), is used for generating the navigation bar as well as other webpage styline elements.
@@ -31,7 +31,7 @@ By Wesley Thompson
 * CSS used for webpage styling.
 * SQLite database used for storing user and vehicle data.
 
-## Currency and Inflation Adjustment
+### Currency and Inflation Adjustment
 
 * This website is setup for the united kingdom, so the currency is set to GBP, there is currently no option for other currencies.
 * The values of purchase price and maintenance cost for reviews based on purchases from past years are adjusted for inflation using values from the UK Office for National Statistics website.
