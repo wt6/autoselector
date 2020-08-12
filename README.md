@@ -18,6 +18,8 @@ By Wesley Thompson
 3. **(For testing purposes)** Flask's inbuilt development server can be used by setting the environment variable FLASK_APP=application.py. Then run using command 'flask run' and direct your web browser to the provided IP address to use the website.
 
     **(For non-testing purposes)** A WSGI server will be required to run web application.
+    
+4. See demonstration of functionality and usage of website in [YouTube video](https://youtu.be/zlzeqaiRoQc).
 
 ## Prerequisites
 * Python 3.5
