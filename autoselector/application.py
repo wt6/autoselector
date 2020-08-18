@@ -1,4 +1,5 @@
 from datetime import datetime
+import os
 
 from flask import Flask, flash, redirect, render_template, request, session, jsonify
 from werkzeug.exceptions import default_exceptions
@@ -15,7 +16,8 @@ app = Flask("autoselector")
 
 # Configure application from settings file located via environment variable
 app.config.from_object('autoselector.default_settings')
-app.config.from_envvar('AUTOSELECTOR_SETTINGS')
+if os.environ.get('AUTOSELECTOR_SETTINGS') != None:
+    app.config.from_envvar('AUTOSELECTOR_SETTINGS')
 
 # Initialise DBManager object
 db = DBManager(app, db_location)
