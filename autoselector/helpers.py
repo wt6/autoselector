@@ -3,6 +3,8 @@ import csv
 from flask import redirect, session
 from functools import wraps
 
+from autoselector.config import inflation_file_location
+
 def login_required(f):
     """
     Decorate routes to require login.
@@ -24,7 +26,7 @@ class InflationFinder(object):
         # Get inflation (CPI) index value data from CSV file.
         # Data in this file is taken from the UK Office for National Statistics website:
         # https://www.ons.gov.uk/economy/inflationandpriceindices/datasets/consumerpriceinflation
-        with open("inflation.csv", "r") as inflation_file:
+        with open(inflation_file_location, "r") as inflation_file:
             datareader = csv.reader(inflation_file)
 
             # Save data from inflation file into dict

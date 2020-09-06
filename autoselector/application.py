@@ -5,11 +5,9 @@ from flask import Flask, flash, redirect, render_template, request, session, jso
 from werkzeug.exceptions import default_exceptions
 from werkzeug.security import check_password_hash, generate_password_hash
 
+from autoselector.config import db_location
 from autoselector.helpers import InflationFinder, login_required, comma_format
 from autoselector.dbmanager import DBManager
-
-# Global variable for location of db which stores user, vehicle and reviews data
-db_location = "autos.db"
 
 # Instantiate Flask application
 app = Flask("autoselector")
